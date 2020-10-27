@@ -1,1 +1,1 @@
-export { addTodo } from "./action";
+export { addTodo, completeTodo, activeTodo } from "./action";

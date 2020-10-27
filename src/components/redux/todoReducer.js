@@ -1,4 +1,4 @@
-import { ADD_TODO } from "./types";
+import { ADD_TODO, COMPLETE_TODO, ACTIVE_TODO } from "./types";
 
 const initialState = {
     todos: [
@@ -19,6 +19,19 @@ const initialState = {
               complete: false,
             },
           ],
+        };
+      case COMPLETE_TODO:
+        return {
+          todos: action.payload.map((todo) => {
+            if (todo.id === action.id) {
+              todo.complete = action.status;
+            }
+            return todo;
+          }),
+        };
+      case ACTIVE_TODO:
+        return {
+          todos: action.payload.filter((todo) => !todo.complete),
         };
 
       default:

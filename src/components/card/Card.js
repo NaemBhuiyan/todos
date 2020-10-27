@@ -1,20 +1,34 @@
-import React, { useState } from "react";
-import { Col, Form, Input, Row } from "reactstrap";
+import React, { useEffect, useState } from "react";
+import { Badge, Button, Col, Form, Input, Row } from "reactstrap";
 import { useSelector, useDispatch } from "react-redux";
 import TodosCard from "./TodosCard";
 
-import { addTodo } from "../redux";
+import { addTodo, activeTodo } from "../redux";
 
 const Layout = () => {
   const todos = useSelector((state) => state.todos);
   const setTodos = useDispatch();
-  console.log(todos);
+  const setActiveTodos = useDispatch();
   const [todoText, setTodoText] = useState("");
+  const leftTask = todos.filter((todo) => !todo.complete).length;
+  const activeTask = todos.filter((todo) => !todo.complete);
   return (
-    <div>
+    <div className="container">
+      <Row>
+        <Col>
+          <h4 className="mb-5 mt-6">
+            leftTask <Badge color="primary"> {leftTask}</Badge>
+          </h4>
+          <Button
+            onClick={() => {
+              setActiveTodos(activeTodo(activeTask));
+            }}>
+            Active Task
+          </Button>
+        </Col>
+      </Row>
       <Row className="justify-content-center mb-4">
-        <Col xs="5" className="text-center">
-          <h1 className="mb-6 mt-3">Todo</h1>
+        <Col xs="5">
           <Form
             onSubmit={(e) => {
               e.preventDefault();
@@ -35,13 +49,13 @@ const Layout = () => {
           </Form>
         </Col>
       </Row>
-      <div className="row no-gutters justify-content-center">
+      <Row className="justify-content-center">
         <div className="col-6">
           {todos.map((todo, index) => (
             <TodosCard key={index} todo={todo}></TodosCard>
           ))}
         </div>
-      </div>
+      </Row>
     </div>
   );
 };

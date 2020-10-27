@@ -1,15 +1,17 @@
-import React, { useContext, useState, memo } from "react";
+import React, { useState, memo } from "react";
+import { useSelector, useDispatch } from "react-redux";
 
 import { CustomInput, Input } from "reactstrap";
-import AppContext from "../context";
 import PropTypes from "prop-types";
+import { completeTodo } from "../redux";
 
-const TodoText = memo(function TodoText({ todo, editId }) {
-  const [isCheck, setIsCheck] = useState(false);
-  const { handleDelete, handleEdit, setIsShow, isShow } = useContext(
-    AppContext
-  );
-  const { text, id } = todo;
+const TodoText = memo(function TodoText({ todo }) {
+  const todos = useSelector((state) => state.todos);
+  const setCompleteTodos = useDispatch();
+
+  console.log(todos);
+
+  const { text, id, complete } = todo;
   return (
     <>
       <div className="row no-gutters">
@@ -18,16 +20,18 @@ const TodoText = memo(function TodoText({ todo, editId }) {
             type="checkbox"
             id={id}
             onChange={({ target }) => {
-              setIsCheck(target.checked);
+              setCompleteTodos(completeTodo(target.checked, id, todos));
             }}
+            checked={complete}
           />
         </div>
         <div className="col align-top">
-          {!isShow ? (
-            <h5 className="mb-0">{isCheck ? <del>{text}</del> : text}</h5>
+          <h5 className="mb-0">{complete ? <del>{text}</del> : text}</h5>
+          {/* {!isComplete ? (
+            
           ) : (
             <Input defaultValue={text}></Input>
-          )}
+          )} */}
         </div>
       </div>
     </>
