@@ -5,7 +5,7 @@ import TodosCard from "./TodosCard";
 
 import { addTodo, allTodo, clearTodo } from "../redux";
 
-const Layout = () => {
+const Todo = () => {
   const todos = useSelector((state) => state.todos);
   const setTodos = useDispatch();
   const setClearTodo = useDispatch();
@@ -19,13 +19,12 @@ const Layout = () => {
   }, [todos]);
   return (
     <div className="container">
-      <Row className="mb-5 mt-6 ">
-        <Col xs="auto">
-          <h4>
+      <h2 className="text-center mt-6">ToDo</h2>
+      <Row className="mb-5 mt-6 d-flex justify-content-center ">
+        <Col xs="8">
+          <h4 className="d-inline-block mr-4">
             Left Task <Badge color="primary"> {leftTask}</Badge>
           </h4>
-        </Col>
-        <Col>
           <Button
             className="  mr-4"
             onClick={() => {
@@ -56,7 +55,7 @@ const Layout = () => {
         </Col>
       </Row>
       <Row className="justify-content-center mb-4">
-        <Col xs="5">
+        <Col xs="6">
           <Form
             onSubmit={(e) => {
               e.preventDefault();
@@ -67,6 +66,7 @@ const Layout = () => {
             <Row form>
               <Col>
                 <Input
+                  bsSize="lg"
                   placeholder="Enter your Todo"
                   value={todoText}
                   onChange={({ target }) => {
@@ -79,7 +79,7 @@ const Layout = () => {
         </Col>
       </Row>
       <Row className="justify-content-center">
-        <div className="col-6">
+        <div className="col-7">
           {showTodos.map((todo, index) => (
             <TodosCard key={index} todo={todo}></TodosCard>
           ))}
@@ -89,16 +89,4 @@ const Layout = () => {
   );
 };
 
-// const mapStateToProps = (state) => {
-//   return {
-//     todos: state.todos,
-//   };
-// };
-
-// const mapDispatchToProps = (dispatch) => {
-//   return {
-//     addTodo: () => dispatch(addTodo()),
-//   };
-// };
-
-export default Layout;
+export default Todo;
