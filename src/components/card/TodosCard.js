@@ -8,7 +8,6 @@ const TodosCard = ({ todo }) => {
     <Card
       className="mb-4"
       onDoubleClick={() => {
-        console.log("duble");
         setDoubleClick(true);
       }}>
       <CardBody className="d-flex justify-content-between">

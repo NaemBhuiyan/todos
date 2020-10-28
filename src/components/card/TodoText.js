@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { useDispatch } from "react-redux";
 
 import { CustomInput, Form, Input } from "reactstrap";
-import { completeTodo } from "../redux";
+import { completeTodo, editTodo } from "../redux";
 
 const TodoText = ({ todo, doubleClick, setDoubleClick }) => {
   const setCompleteTodos = useDispatch();
+  const setEditTodos = useDispatch();
+  const [changeText, setChangedText] = useState("");
 
   const { text, id, complete } = todo;
   return (
@@ -32,8 +34,14 @@ const TodoText = ({ todo, doubleClick, setDoubleClick }) => {
               onSubmit={(e) => {
                 e.preventDefault();
                 setDoubleClick(false);
+                setEditTodos(editTodo(id, changeText));
               }}>
-              <Input defaultValue={text}></Input>
+              <Input
+                defaultValue={text}
+                onChange={({ target }) => {
+                  setChangedText(target.value);
+                }}
+              />
             </Form>
           )}
         </div>

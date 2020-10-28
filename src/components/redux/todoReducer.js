@@ -1,5 +1,11 @@
 import { v4 as uuid } from "uuid";
-import { ADD_TODO, COMPLETE_TODO, ALL_TODO, CLEAR_TODO } from "./types";
+import {
+  ADD_TODO,
+  COMPLETE_TODO,
+  ALL_TODO,
+  CLEAR_TODO,
+  EDIT_TODO,
+} from "./types";
 
 const initialState = {
     todos: [
@@ -42,6 +48,18 @@ const initialState = {
       case CLEAR_TODO:
         return {
           todos: [...action.payload],
+        };
+      case EDIT_TODO:
+        console.log(action.id, action.text);
+        return {
+          todos: [
+            ...state.todos.map((todo) => {
+              if (todo.id === action.id) {
+                todo.text = action.text;
+              }
+              return todo;
+            }),
+          ],
         };
 
       default:
