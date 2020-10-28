@@ -1,12 +1,11 @@
-import React, { useState, memo } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React, { memo } from "react";
+import { useDispatch } from "react-redux";
 
-import { CustomInput, Input } from "reactstrap";
+import { CustomInput } from "reactstrap";
 import PropTypes from "prop-types";
 import { completeTodo } from "../redux";
 
 const TodoText = memo(function TodoText({ todo }) {
-  const todos = useSelector((state) => state.todos);
   const setCompleteTodos = useDispatch();
 
   const { text, id, complete } = todo;
@@ -18,7 +17,7 @@ const TodoText = memo(function TodoText({ todo }) {
             type="checkbox"
             id={id}
             onChange={({ target }) => {
-              setCompleteTodos(completeTodo(target.checked, id, todos));
+              setCompleteTodos(completeTodo(id, target.checked));
             }}
             checked={complete}
           />

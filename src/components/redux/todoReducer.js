@@ -1,4 +1,4 @@
-import { ADD_TODO, COMPLETE_TODO, ACTIVE_TODO } from "./types";
+import { ADD_TODO, COMPLETE_TODO, ACTIVE_TODO, ALL_TODO } from "./types";
 
 const initialState = {
     todos: [
@@ -6,8 +6,8 @@ const initialState = {
       { id: 2, text: "Good after Noon", complete: false },
       { id: 3, text: "Good night", complete: false },
     ],
-
-    active: [],
+    activeTodos: [],
+    inactiveTodos: [],
   },
   todoReducer = (state = initialState, action) => {
     switch (action.type) {
@@ -21,20 +21,28 @@ const initialState = {
               complete: false,
             },
           ],
+          activeTodos: [],
+          inactiveTodos: [],
         };
       case COMPLETE_TODO:
         return {
-          todos: action.payload.map((todo) => {
-            if (todo.id === action.id) {
-              todo.complete = action.status;
-            }
-            return todo;
-          }),
+          todos: [
+            ...state.todos.map((todo) => {
+              if (todo.id === action.id) {
+                todo.complete = action.status;
+              }
+              return todo;
+            }),
+          ],
         };
       case ACTIVE_TODO:
         return {
-          todos: state.todos,
-          active: action.payload,
+          todos: [...state.todos],
+          activeTodos: [...action.payload],
+        };
+      case ALL_TODO:
+        return {
+          todos: [...state.todos],
         };
 
       default:
