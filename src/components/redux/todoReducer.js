@@ -1,13 +1,12 @@
-import { ADD_TODO, COMPLETE_TODO, ACTIVE_TODO, ALL_TODO } from "./types";
+import { v4 as uuid } from "uuid";
+import { ADD_TODO, COMPLETE_TODO, ALL_TODO, CLEAR_TODO } from "./types";
 
 const initialState = {
     todos: [
-      { id: 1, text: "Good morning", complete: false },
-      { id: 2, text: "Good after Noon", complete: false },
-      { id: 3, text: "Good night", complete: false },
+      { id: uuid(), text: "Good morning", complete: false },
+      { id: uuid(), text: "Good after Noon", complete: false },
+      { id: uuid(), text: "Good night", complete: false },
     ],
-    activeTodos: [],
-    inactiveTodos: [],
   },
   todoReducer = (state = initialState, action) => {
     switch (action.type) {
@@ -16,7 +15,7 @@ const initialState = {
           todos: [
             ...state.todos,
             {
-              id: state.todos.length + 1,
+              id: uuid(),
               text: action.payload,
               complete: false,
             },
@@ -35,14 +34,14 @@ const initialState = {
             }),
           ],
         };
-      case ACTIVE_TODO:
-        return {
-          todos: [...state.todos],
-          activeTodos: [...action.payload],
-        };
+
       case ALL_TODO:
         return {
           todos: [...state.todos],
+        };
+      case CLEAR_TODO:
+        return {
+          todos: [...action.payload],
         };
 
       default:

@@ -1,11 +1,11 @@
-import React, { memo } from "react";
+import React from "react";
+import PropTypes from "prop-types";
 import { useDispatch } from "react-redux";
 
-import { CustomInput } from "reactstrap";
-import PropTypes from "prop-types";
+import { CustomInput, Form, Input } from "reactstrap";
 import { completeTodo } from "../redux";
 
-const TodoText = memo(function TodoText({ todo }) {
+const TodoText = ({ todo, doubleClick, setDoubleClick }) => {
   const setCompleteTodos = useDispatch();
 
   const { text, id, complete } = todo;
@@ -13,28 +13,39 @@ const TodoText = memo(function TodoText({ todo }) {
     <>
       <div className="row no-gutters">
         <div className="col-auto align-middle">
-          <CustomInput
-            type="checkbox"
-            id={id}
-            onChange={({ target }) => {
-              setCompleteTodos(completeTodo(id, target.checked));
-            }}
-            checked={complete}
-          />
+          {!doubleClick && (
+            <CustomInput
+              type="checkbox"
+              id={id}
+              onChange={({ target }) => {
+                setCompleteTodos(completeTodo(id, target.checked));
+              }}
+              checked={complete}
+            />
+          )}
         </div>
         <div className="col align-top">
-          <h5 className="mb-0">{complete ? <del>{text}</del> : text}</h5>
-          {/* {!isComplete ? (
-            
+          {!doubleClick ? (
+            <h5 className="mb-0">{complete ? <del>{text}</del> : text}</h5>
           ) : (
-            <Input defaultValue={text}></Input>
-          )} */}
+            <Form
+              onSubmit={(e) => {
+                e.preventDefault();
+                setDoubleClick(false);
+              }}>
+              <Input defaultValue={text}></Input>
+            </Form>
+          )}
         </div>
       </div>
     </>
   );
-});
+};
 
-TodoText.propTypes = {};
+TodoText.propTypes = {
+  todo: PropTypes.object,
+  doubleClick: PropTypes.bool,
+  setDoubleClick: PropTypes.func,
+};
 
 export default TodoText;

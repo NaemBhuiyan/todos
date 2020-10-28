@@ -1,4 +1,4 @@
-import { ADD_TODO, COMPLETE_TODO, ACTIVE_TODO, ALL_TODO } from "./types";
+import { ADD_TODO, COMPLETE_TODO, ALL_TODO, CLEAR_TODO } from "./types";
 
 export const addTodo = (text) => {
   return {
@@ -8,7 +8,6 @@ export const addTodo = (text) => {
 };
 
 export const completeTodo = (id, status) => {
-  console.log({ id, status });
   return {
     type: COMPLETE_TODO,
     id,
@@ -16,14 +15,14 @@ export const completeTodo = (id, status) => {
   };
 };
 
-export const activeTodo = (data) => {
-  return {
-    type: ACTIVE_TODO,
-    payload: data,
-  };
-};
 export const allTodo = () => {
   return {
     type: ALL_TODO,
+  };
+};
+export const clearTodo = (data) => {
+  return {
+    type: CLEAR_TODO,
+    payload: data,
   };
 };

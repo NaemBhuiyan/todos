@@ -3,25 +3,26 @@ import { Badge, Button, Col, Form, Input, Row } from "reactstrap";
 import { useSelector, useDispatch } from "react-redux";
 import TodosCard from "./TodosCard";
 
-import { addTodo, activeTodo, allTodo } from "../redux";
+import { addTodo, allTodo, clearTodo } from "../redux";
 
 const Layout = () => {
   const todos = useSelector((state) => state.todos);
   const setTodos = useDispatch();
+  const setClearTodo = useDispatch();
   const [todoText, setTodoText] = useState("");
   const [showTodos, setShowTodos] = useState(todos);
   const leftTask = todos.filter((todo) => !todo.complete).length;
   const activeTask = todos.filter((todo) => !todo.complete);
+  const completeTask = todos.filter((todo) => todo.complete);
   useEffect(() => {
     setShowTodos(todos);
   }, [todos]);
-  console.log(todos);
   return (
     <div className="container">
       <Row className="mb-5 mt-6 ">
         <Col xs="auto">
           <h4>
-            leftTask <Badge color="primary"> {leftTask}</Badge>
+            Left Task <Badge color="primary"> {leftTask}</Badge>
           </h4>
         </Col>
         <Col>
@@ -29,15 +30,28 @@ const Layout = () => {
             className="  mr-4"
             onClick={() => {
               setTodos(allTodo());
-              setShowTodos(todos);
             }}>
             All Task
           </Button>
           <Button
+            className="mr-4"
             onClick={() => {
               setShowTodos(activeTask);
             }}>
             Active Task
+          </Button>
+          <Button
+            className="mr-4"
+            onClick={() => {
+              setShowTodos(completeTask);
+            }}>
+            Complete Task
+          </Button>
+          <Button
+            onClick={() => {
+              setClearTodo(clearTodo(activeTask));
+            }}>
+            Clear complete
           </Button>
         </Col>
       </Row>
