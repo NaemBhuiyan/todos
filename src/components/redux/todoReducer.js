@@ -6,6 +6,8 @@ const initialState = {
       { id: 2, text: "Good after Noon", complete: false },
       { id: 3, text: "Good night", complete: false },
     ],
+
+    active: [],
   },
   todoReducer = (state = initialState, action) => {
     switch (action.type) {
@@ -31,7 +33,8 @@ const initialState = {
         };
       case ACTIVE_TODO:
         return {
-          todos: action.payload.filter((todo) => !todo.complete),
+          todos: state.todos,
+          active: action.payload,
         };
 
       default:

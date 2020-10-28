@@ -15,11 +15,14 @@ const Layout = () => {
   return (
     <div className="container">
       <Row>
-        <Col>
+        <Col xs="auto">
           <h4 className="mb-5 mt-6">
             leftTask <Badge color="primary"> {leftTask}</Badge>
           </h4>
+        </Col>
+        <Col>
           <Button
+            className="mb-5 mt-6"
             onClick={() => {
               setActiveTodos(activeTodo(activeTask));
             }}>

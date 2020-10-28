@@ -9,8 +9,6 @@ const TodoText = memo(function TodoText({ todo }) {
   const todos = useSelector((state) => state.todos);
   const setCompleteTodos = useDispatch();
 
-  console.log(todos);
-
   const { text, id, complete } = todo;
   return (
     <>
