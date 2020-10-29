@@ -4,6 +4,7 @@ import {
   ALL_TODO,
   CLEAR_TODO,
   EDIT_TODO,
+  DELETE_TODO,
 } from "./types";
 
 export const addTodo = (text) => {
@@ -38,5 +39,11 @@ export const editTodo = (id, text) => {
     type: EDIT_TODO,
     id,
     text,
+  };
+};
+export const deleteTodo = (id) => {
+  return {
+    type: DELETE_TODO,
+    id,
   };
 };

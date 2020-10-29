@@ -59,7 +59,7 @@ const Todo = () => {
           <Form
             onSubmit={(e) => {
               e.preventDefault();
-              setTodos(addTodo(todoText));
+              todoText && setTodos(addTodo(todoText));
               setShowTodos(todos);
               setTodoText("");
             }}>

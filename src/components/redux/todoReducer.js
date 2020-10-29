@@ -5,6 +5,7 @@ import {
   ALL_TODO,
   CLEAR_TODO,
   EDIT_TODO,
+  DELETE_TODO,
 } from "./types";
 
 const initialState = {
@@ -48,6 +49,10 @@ const initialState = {
       case CLEAR_TODO:
         return {
           todos: [...action.payload],
+        };
+      case DELETE_TODO:
+        return {
+          todos: [...state.todos.filter((todo) => todo.id !== action.id)],
         };
       case EDIT_TODO:
         console.log(action.id, action.text);
