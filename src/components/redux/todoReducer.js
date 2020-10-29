@@ -27,8 +27,6 @@ const initialState = {
               complete: false,
             },
           ],
-          activeTodos: [],
-          inactiveTodos: [],
         };
       case COMPLETE_TODO:
         return {
