@@ -46,12 +46,14 @@ const Todo = () => {
             }}>
             Complete Task
           </Button>
-          <Button
-            onClick={() => {
-              setClearTodo(clearTodo(activeTask));
-            }}>
-            Clear complete
-          </Button>
+          {completeTask.length > 0 && (
+            <Button
+              onClick={() => {
+                setClearTodo(clearTodo(activeTask));
+              }}>
+              Clear complete
+            </Button>
+          )}
         </Col>
       </Row>
       <Row className="justify-content-center mb-4">
